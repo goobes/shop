@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> 
+{% load static %}
+{% load compress %}
+<html class="no-js"> <!--<![endif]-->
+<head>
+        <!-- meta -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="{% block meta_description %}{% endblock %}">
+        <meta name="author" content="{% block meta_author %}{% endblock %}">
+
+        <title>{% block page_title %}Goobes{% endblock %}</title>
+ 
+        
+        <!-- stylesheets -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+        <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+        <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+        <!-- scripts -->
+        <script type="text/javascript" src="{% static 'js/modernizr.custom.97074.js' %}"></script>
+        {% block head %}{% endblock %}
+</head>
+
+<body>
+
+        <div id="home-page">
+
+            <!-- site-navigation start -->  
+            <nav id="mainNavigation" class="navbar navbar-dafault main-navigation" role="navigation">
+                <div class="container">
+                    
+                    <div class="navbar-header">
+                        
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        
+                        <!-- navbar logo -->
+                        <div class="navbar-brand">
+                            <span class="sr-only">Goobe's Book Republic</span>
+                            <a href="/">
+                                <img src="{% static 'img/logox48.jpg' %}" class="img-responsive center-block" alt="logo">
+                            </a>
+                        </div>
+                        <!-- navbar logo -->
+
+                    </div><!-- /.navbar-header -->
+
+                    <!-- nav links -->
+                    <div class="collapse navbar-collapse" id="main-nav-collapse">
+                        <ul class="nav navbar-nav navbar-right text-uppercase">
+                            <li>
+                                <a href="{% url 'home' %}"><span>home</span></a>
+                            </li>
+                            <li>
+                                <a href="{% url 'shop' %}"><span>shop</span></a>
+                            </li>
+                            <li>
+                              {% if user.is_authenticated %}
+                                  {% if user.profile %}
+                                  <a href="{% url 'profile-detail' pk=user.profile.id %}"><span>profile</span></a>
+                                  {% else %}
+                                  <a href="{% url 'profile-create' %}"><span>create profile</span></a>
+                                  {% endif %}
+                              {% else %}
+                              <a href="{% url 'account_login' %}"><span>login</span></a>
+                              {% endif %}
+                            </li>
+                        </ul>
+                    </div><!-- nav links -->
+                    
+                </div><!-- /.container -->
+            </nav>
+            <!-- site-navigation end -->
+
+            {% block hero %} {% endblock %}
+            <div class="main-content">
+            {% block content %} {% endblock %}
+            </div> <!-- end of /.main-content -->
+
+            <footer>
+                <div class="container">
+                    <div class="row">
+
+                        <!-- useful links -->
+                        <div class="col-md-3 col-sm-6 col-xs-6 footer-widget">
+                            <h4>Useful Links</h4>
+                            <ul class="row footer-links">
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <li><a href="#">Web Design</a></li>
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Mobile</a></li>
+                                    <li><a href="#">Blog</a></li>
+                                    <li><a href="#">Services</a></li>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <li><a href="#">Organization</a></li>
+                                    <li><a href="#">Career</a></li>
+                                    <li><a href="#">Media</a></li>
+                                    <li><a href="#">24/7</a></li>
+                                    <li><a href="#">Right Way</a></li>
+                                </div>
+                            </ul>
+                        </div>
+
+                        <!-- recent news -->
+                        <div class="col-md-3 col-sm-6 col-xs-6 footer-widget">
+                            <h4>Recent News</h4>
+
+                            <div class="row footer-news">
+                                <div class="col-md-4 col-sm-4 col-xs-6">
+                                </div>
+                                <div class="col-md-8 col-sm-4 col-xs-6">
+                                    <div class="row">
+                                        <p class="text-capitalize">
+                                            <a href="#">
+                                                a clear website gives more experience to the visitors
+                                            </a>
+                                        </p>
+                                        <p class="news-date">Dec 12,2015</p>
+                                    </div>
+                                </div>
+                            </div> <!-- /.footer-news -->
+
+                            <div class="row footer-news">
+                                <div class="col-md-4 col-sm-4 col-xs-6">
+                                </div>
+                                <div class="col-md-8 col-sm-4 col-xs-6">
+                                    <div class="row">
+                                        <p class="text-capitalize">
+                                            <a href="#">
+                                                a clear website gives more experience to the visitors
+                                            </a>
+                                        </p>
+                                        <p class="news-date">Dec 12,2015</p>
+                                    </div>
+                                </div>
+                            </div> <!-- /.footer-news -->
+                        </div> <!-- /.footer-widget -->
+
+                        <!-- news-letter -->
+                        <div class="col-md-3 col-sm-6 col-xs-6 footer-widget">
+                            <h4>E-News-Letter</h4>
+
+                            <p>Sign up for our mailing list to get latest updates and offers</p>
+                            <div class="input-group margin-bottom-sm">
+                                <input class="form-control" type="text" placeholder="Email address">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-paper-plane fa-fw"></i>
+                                </span>
+                            </div>
+                            <p>We respect your privacy</p>
+                        </div> <!-- /.footer-widget -->
+
+                        <!-- about avada agency -->
+                        <div class="col-md-3 col-sm-6 col-xs-6 footer-widget">
+                            <h4>Goobe's Book Republic</h4>
+
+                            <p>
+                              An indie bookstore and libary in Bangalore.
+                            </p>
+
+                            <div class="footer-address">
+                                <p>
+                                    +91-80-4209-2340  <br>
+                                    goobesbookrepublic@gmail.com
+                                </p>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="footer-share-button">
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                    </ul> <!-- /.footer-share-button -->
+                                </div>
+                            </div>
+                        </div> <!-- /.footer-widget -->
+
+                    </div>
+                </div>
+            </footer>
+
+
+            <!-- footer-navigation start -->  
+            <nav class="hidden-xs hidden-sm navbar footer-nav" role="navigation">
+                <div class="container">
+                    
+                    <div class="navbar-header">
+                        
+                        <!-- navbar logo -->
+                        <div class="navbar-brand">
+                            <span class="sr-only">&copy;THEMEWAGON</span>
+                            <a href="index.html">
+                                &copy;THEMEWAGON
+                            </a>
+                        </div>
+                        <!-- navbar logo -->
+
+                    </div><!-- /.navbar-header -->
+
+                    <!-- nav links -->
+                    <div class="collapse navbar-collapse" id="main-nav-collapse">
+                        <ul class="nav navbar-nav navbar-right text-capitalize">
+                            <li><a href="#about">
+                                <span>home</span>
+                            </a></li>
+
+                            <li><a href="#services">
+                                <span>pages</span>
+                            </a></li>
+
+                            <li><a href="#portfolio">
+                                <span>features</span>
+                            </a></li>
+
+                            <li><a href="#team">
+                                <span>portfolio</span>
+                            </a></li>
+
+                            <li><a href="#pricing">
+                                <span>blog</span>
+                            </a></li>
+
+                            <li><a href="#blog">
+                                <span>shop</span>
+                            </a></li>
+
+                            <li><a href="#contact">
+                                <span>contact</span>
+                            </a></li>
+                        </ul>
+                    </div><!-- nav links -->
+                    
+                </div><!-- /.container -->
+            </nav>
+            <!-- footer-navigation end -->
+            
+        </div> <!-- end of /#home-page -->
+
+        <!--  Necessary scripts  -->
+
+        <script type="text/javascript" src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/owl.carousel.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.hoverdir.js' %}"></script>
+
+
+        <!-- script for portfolio section using hoverdirection -->
+        <script type="text/javascript">
+            $(function() {
+
+                $('.portfolio-item > .item-image').each( function() { $(this).hoverdir({
+                    hoverDelay : 75
+                }); } );
+
+            });
+        </script>
+
+
+        <!-- script for twitter-feed using owl carousel-->
+        <script type="text/javascript">
+            $(document).ready(function() {
+ 
+                $("#twit").owlCarousel({
+                 
+                    navigation : true, // Show next and prev buttons
+                    slideSpeed : 100,
+                    paginationSpeed : 400,
+                    navigationText : false,
+                    singleItem: true,
+                    autoPlay: true,
+                    pagination: false
+                });
+ 
+            });
+        </script>
+
+
+        <!-- script for testimonial section using owl carousel -->
+        <script type="text/javascript">
+            $(document).ready(function() {
+ 
+                $("#client-speech").owlCarousel({
+                 
+                    autoPlay: 5000, //Set AutoPlay to 3 seconds
+                    stopOnHover: true,
+                    singleItem:true
+                });
+ 
+            });
+        </script>
+
+  {% block scripts %}{% endblock %}
+    </body>
+</html>

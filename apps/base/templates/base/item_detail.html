@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>{{ object.name }}</h2>
+            </div>
+            <div class="col-md-2">
+                <a href="{% url 'payment-create' pk=object.id %}" class="btn btn-primary">Buy Now</a>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col-md-8">
+              {{ object.description|safe }} 
+            </div>
+            <div class="col-md-4">
+                <img src="{{ object.image.url }}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8" id="instagram">
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{% if object.instagram_url %}
+<script type="text/javascript">
+$(function() {
+  $.getJSON("https://api.instagram.com/oembed?url={{ object.instagram_url }}&callback=?", function(result) {
+    $("#instagram").html(result.html);
+  });
+});
+</script>
+{% endif %}
+{% endblock %}
