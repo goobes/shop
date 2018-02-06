@@ -6,6 +6,7 @@ from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.conf import settings
 from django.urls import reverse
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from instamojo_wrapper import Instamojo
 from datetime import datetime
@@ -79,10 +80,11 @@ def payment_webhook(request):
     data = request.POST.dict()
     mac = data.pop("mac")
     message = message = "|".join(v for k, v in sorted(data.items(), key=lambda x: x[0].lower()))
-    mac_calculated = hmac.new(settings.INSTAMOJO['SALT'], message.encode(), hashlib.sha1).hexdigest()
+    mac_calculated = hmac.new(settings.INSTAMOJO['SALT'].encode(), message.encode(), hashlib.sha1).hexdigest()
     logger.info("payment_webhook: mac - {}".format(mac))
     logger.info("payment_webhook: calculated mac - {}".format(mac_calculated))
     if mac_calculated == mac:
+        payment = Payment.objects.get(payment_id=data['payment_id'])
         payment.payment_id = data['payment_id']
         payment.payment_request_id = data['payment_request_id']
         payment.status = data['status']
@@ -90,9 +92,9 @@ def payment_webhook(request):
         payment.longurl = data['longurl']
         payment.shorturl = data['shorturl']
         payment.save()
-        return HttpResponse(status_code=200)
+        return HttpResponse(status=200)
     else:
-        return HttpResponse(status_code=400)
+        return HttpResponse(status=400)
 
 
 class ProfileCreate(CreateView):
