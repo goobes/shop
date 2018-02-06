@@ -11,6 +11,7 @@ from instamojo_wrapper import Instamojo
 from datetime import datetime
 import logging
 import hmac
+import hashlib
 
 from .models import Profile, Item, Payment
 from .forms import ProfileForm
