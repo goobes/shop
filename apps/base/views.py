@@ -42,7 +42,7 @@ def make_payment(request, pk):
     payment = Payment.objects.create(
             user=request.user,
             item=item,
-            payment_date=datetime.today(),
+            payment_at=datetime.now(),
             amount=item.price)
     response = payment_api.payment_request_create(
             amount=item.price,

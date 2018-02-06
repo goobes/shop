@@ -93,7 +93,7 @@ class Profile(models.Model):
 class Payment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    payment_date = models.DateField()
+    payment_at = models.DateTimeField(auto_now_add=True)
     payment_id = models.CharField(max_length=64)
     payment_request_id = models.CharField(max_length=64)
     amount = models.DecimalField(max_digits=7, decimal_places=2)
