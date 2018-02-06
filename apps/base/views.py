@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from instamojo_wrapper import Instamojo
 from datetime import datetime
 import logging
+import hmac
 
 from .models import Profile, Item, Payment
 from .forms import ProfileForm
@@ -77,7 +78,7 @@ def payment_webhook(request):
     data = request.POST.dict()
     mac = data.pop("mac")
     message = message = "|".join(v for k, v in sorted(data.items(), key=lambda x: x[0].lower()))
-    mac_calculated = hmac.new(settings.INSTAMOJO['SALT'], message, hashlib.sha1).hexdigest()
+    mac_calculated = hmac.new(settings.INSTAMOJO['SALT'], message.encode(), hashlib.sha1).hexdigest()
     logger.info("payment_webhook: mac - {}".format(mac))
     logger.info("payment_webhook: calculated mac - {}".format(mac_calculated))
     if mac_calculated == mac:

@@ -10,7 +10,7 @@ SECRET_KEY = 'somestring'
 INSTAMOJO = {
     'API_KEY': 'test_xxx',
     'AUTH_TOKEN': 'test_xxx',
-    'SALT': 'instamojosalt',
+    'SALT': b'instamojosalt',
     'TEST': True #whether to use the test server or live server
 }
 
