@@ -8,6 +8,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from instamojo_wrapper import Instamojo
 from datetime import datetime
 import logging
@@ -37,6 +38,7 @@ def check_profile(request):
     else:
         return redirect('profile-create')
 
+@login_required
 def make_payment(request, pk):
     item = Item.objects.get(pk=pk)
     payment = Payment.objects.create(
@@ -65,6 +67,7 @@ def make_payment(request, pk):
                     }
                 )
 
+@login_required
 def payment_redirect(request, pk):
     payment = Payment.objects.get(pk=pk)
     payment.payment_id = request.GET.get("payment_id")
@@ -97,6 +100,7 @@ def payment_webhook(request):
         return HttpResponse(status=400)
 
 
+#TODO - Add redirect from dispatch if Profile already exists - redirect to Profile Update
 class ProfileCreate(CreateView):
     model = Profile
     form_class = ProfileForm
