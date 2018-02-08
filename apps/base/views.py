@@ -87,9 +87,9 @@ def payment_webhook(request):
     logger.info("payment_webhook: mac - {}".format(mac))
     logger.info("payment_webhook: calculated mac - {}".format(mac_calculated))
     if mac_calculated == mac:
-        payment = Payment.objects.get(payment_id=data['payment_id'])
+        payment = Payment.objects.get(payment_request_id=data['payment_request_id'])
         payment.payment_id = data['payment_id']
-        payment.payment_request_id = data['payment_request_id']
+        #payment.payment_request_id = data['payment_request_id']
         payment.status = data['status']
         payment.fees = data['fees']
         payment.longurl = data['longurl']
