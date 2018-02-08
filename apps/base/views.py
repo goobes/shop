@@ -46,7 +46,16 @@ def make_payment(request, pk):
             item=item,
             payment_at=datetime.now(),
             amount=item.price)
-    response = payment_api.payment_request_create(
+    if settings.DEBUG:
+        #webhook only works when we are on live server
+        response = payment_api.payment_request_create(
+            amount=item.price,
+            purpose=item.name,
+            send_email=True,
+            email=request.user.email,
+            redirect_url=request.build_absolute_uri(reverse('payment-redirect', kwargs={'pk': payment.id})))
+    else:
+        response = payment_api.payment_request_create(
             amount=item.price,
             purpose=item.name,
             send_email=True,
