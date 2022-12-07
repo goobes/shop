@@ -3,7 +3,7 @@ argon2-cffi==16.3.0
 attrs==17.3.0
 Babel==2.5.1
 bcrypt==3.1.4
-certifi==2017.11.5
+certifi==2022.12.7
 cffi==1.11.2
 chardet==3.0.4
 coverage==4.4.2
